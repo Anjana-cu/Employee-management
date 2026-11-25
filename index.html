@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management System</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f3;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #234567;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background: #234567;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background: #234567;
+            color: white;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Employee Management System</h1>
+
+<div class="container">
+
+<h3>Add Employee</h3>
+
+<form action="/add" method="POST">
+    <input name="name" placeholder="Employee Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input name="department" placeholder="Department" required>
+    <input type="number" name="salary"
+           placeholder="Salary" min="0" step="0.01" required>
+    <button type="submit">Add Employee</button>
+</form>
+
+<hr>
+
+<h3>Search Employee</h3>
+
+<form action="/" method="GET">
+    <input name="search" placeholder="Search by ID or Name">
+    <button type="submit">Search</button>
+    <a href="/">Show All</a>
+</form>
+
+<h3>Employee Records</h3>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for emp in employees %}
+    <tr>
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.salary }}</td>
+        <td>
+            <a href="/update/{{ emp.id }}">Edit</a>
+
+            <form action="/delete/{{ emp.id }}"
+                  method="POST" style="display:inline;">
+                <button type="submit"
+                onclick="return confirm('Delete this employee?')">
+                    Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
